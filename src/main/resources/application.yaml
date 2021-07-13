@@ -35,6 +35,15 @@ observer:
       defaultServiceName: "defaultServiceName"
       security:
         dropUnknownServices: false
+  sinks:
+    MyLogger:
+      type: LoggerSink
+#    MyMongo:
+#      type: MongoSink
+#      config:
+#        uri: "mongodb://root:password@localhost:27017"
+#        database: "reports"
+
 
   security:
     websockets:
@@ -45,15 +54,6 @@ observer:
       salt: "MySalt"
 
   sentinelsCheckingPeriodInMin: 1
-  connectors:
-    - name: "ReportSinkLogger"
-      buffer:
-        maxItems: 100
-        maxWaitingTimeInS: 10
-      sink:
-        type: LoggerSink
-        config:
-          printReports: false
 
   reportMonitor:
     enabled: true
@@ -73,14 +73,16 @@ observer:
     peerConnectionMaxIdleTimeInS: 60
 
   outboundReports:
-    reportOutboundRTPs: true
-    reportInboundRTPs: true
-    reportRemoteInboundRTPs: true
-    reportTracks: true
-    reportMediaSources: true
-    reportCandidatePairs: true
-    reportLocalCandidates: true
-    reportRemoteCandidates: true
-    reportUserMediaErrors: true
+    reportCallMeta: true
+    reportCallEvents: true
+    reportOutboundAudioTracks: true
+    reportOutboundVideoTracks: true
+    reportInboundAudioTracks: true
+    reportInboundVideoTracks: true
+    reportPcTransports: true
+    reportClientDataChannels: true
+    reportObservedExtensions: true
+
+
   hazelcast:
     configFile: ${HAZELCAST_CONFIG_FILE:`classpath:hazelcast.yaml`}
